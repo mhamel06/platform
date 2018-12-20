@@ -17,10 +17,7 @@ export interface State extends fromRoot.State {
   auth: AuthState;
 }
 
-export const reducers: ActionReducerMap<
-  AuthState,
-  AuthApiActions.AuthApiActionsUnion
-> = {
+export const reducers: ActionReducerMap<AuthState, AuthApiActions.Actions> = {
   status: fromAuth.reducer,
   loginPage: fromLoginPage.reducer,
 };
@@ -31,8 +28,14 @@ export const selectAuthStatusState = createSelector(
   selectAuthState,
   (state: AuthState) => state.status
 );
-export const getUser = createSelector(selectAuthStatusState, fromAuth.getUser);
-export const getLoggedIn = createSelector(getUser, user => !!user);
+export const getUser = createSelector(
+  selectAuthStatusState,
+  fromAuth.getUser
+);
+export const getLoggedIn = createSelector(
+  getUser,
+  user => !!user
+);
 
 export const selectLoginPageState = createSelector(
   selectAuthState,

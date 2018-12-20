@@ -17,12 +17,12 @@ import { LogoutConfirmationDialogComponent } from '@example-app/auth/components/
 export class AuthEffects {
   @Effect()
   login$ = this.actions$.pipe(
-    ofType(LoginPageActions.LoginPageActionTypes.Login),
+    ofType(LoginPageActions.LOGIN),
     map(action => action.payload.credentials),
     exhaustMap((auth: Credentials) =>
       this.authService.login(auth).pipe(
-        map(user => new AuthApiActions.LoginSuccess({ user })),
-        catchError(error => of(new AuthApiActions.LoginFailure({ error })))
+        map(user => AuthApiActions.Actions.loginSuccess({ user })),
+        catchError(error => of(AuthApiActions.Actions.loginFailure({ error })))
       )
     )
   );
@@ -35,10 +35,7 @@ export class AuthEffects {
 
   @Effect({ dispatch: false })
   loginRedirect$ = this.actions$.pipe(
-    ofType(
-      AuthApiActions.AuthApiActionTypes.LoginRedirect,
-      AuthActions.AuthActionTypes.Logout
-    ),
+    ofType(AuthApiActions.AuthApiActionTypes.LoginRedirect, AuthActions.LOGOUT),
     tap(authed => {
       this.router.navigate(['/login']);
     })
@@ -46,7 +43,7 @@ export class AuthEffects {
 
   @Effect()
   logoutConfirmation$ = this.actions$.pipe(
-    ofType(AuthActions.AuthActionTypes.LogoutConfirmation),
+    ofType(AuthActions.LOGOUT_CONFIRMATION),
     exhaustMap(() => {
       const dialogRef = this.dialog.open<
         LogoutConfirmationDialogComponent,
@@ -56,16 +53,15 @@ export class AuthEffects {
 
       return dialogRef.afterClosed();
     }),
-    map(
-      result =>
-        result
-          ? new AuthActions.Logout()
-          : new AuthActions.LogoutConfirmationDismiss()
+    map(result =>
+      result
+        ? AuthActions.Actions.logout()
+        : AuthActions.Actions.logoutConfirmationDismiss()
     )
   );
 
   constructor(
-    private actions$: Actions<LoginPageActions.LoginPageActionsUnion>,
+    private actions$: Actions<LoginPageActions.Actions>,
     private authService: AuthService,
     private router: Router,
     private dialog: MatDialog

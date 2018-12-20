@@ -1,24 +1,17 @@
-import { Action } from '@ngrx/store';
+import {
+  createAction,
+  ActionsUnion,
+} from '@example-app/shared/models/actions.model';
 
-export enum AuthActionTypes {
-  Logout = '[Auth] Logout',
-  LogoutConfirmation = '[Auth] Logout Confirmation',
-  LogoutConfirmationDismiss = '[Auth] Logout Confirmation Dismiss',
-}
+// Using Action Types as Consts
+export const LOGOUT = '[Auth] Logout';
+export const LOGOUT_CONFIRMATION = '[Auth] Logout Confirmation';
+export const LOGOUT_CONFIRMATION_DISMISS = '[Auth] Logout Confirmation Dismiss';
 
-export class Logout implements Action {
-  readonly type = AuthActionTypes.Logout;
-}
+export const Actions = {
+  logout: () => createAction(LOGOUT),
+  logoutConfirmation: () => createAction(LOGOUT_CONFIRMATION),
+  logoutConfirmationDismiss: () => createAction(LOGOUT_CONFIRMATION_DISMISS),
+};
 
-export class LogoutConfirmation implements Action {
-  readonly type = AuthActionTypes.LogoutConfirmation;
-}
-
-export class LogoutConfirmationDismiss implements Action {
-  readonly type = AuthActionTypes.LogoutConfirmationDismiss;
-}
-
-export type AuthActionsUnion =
-  | Logout
-  | LogoutConfirmation
-  | LogoutConfirmationDismiss;
+export type Actions = ActionsUnion<typeof Actions>;

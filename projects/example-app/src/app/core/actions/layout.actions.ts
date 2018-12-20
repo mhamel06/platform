@@ -1,16 +1,17 @@
-import { Action } from '@ngrx/store';
+import {
+  createAction,
+  ActionsUnion,
+} from '@example-app/shared/models/actions.model';
 
-export enum LayoutActionTypes {
-  OpenSidenav = '[Layout] Open Sidenav',
-  CloseSidenav = '[Layout] Close Sidenav',
-}
+export const OPEN_SIDENAV = '[Layout] Open Sidenav';
+export const openSidenav = () => createAction(OPEN_SIDENAV);
 
-export class OpenSidenav implements Action {
-  readonly type = LayoutActionTypes.OpenSidenav;
-}
+export const CLOSE_SIDENAV = '[Layout] Close Sidenav';
+export const closeSidenav = () => createAction(CLOSE_SIDENAV);
 
-export class CloseSidenav implements Action {
-  readonly type = LayoutActionTypes.CloseSidenav;
-}
+export const Actions = {
+  openSidenav,
+  closeSidenav,
+};
 
-export type LayoutActionsUnion = OpenSidenav | CloseSidenav;
+export type Actions = ActionsUnion<typeof Actions>;

@@ -12,12 +12,10 @@ export const initialState: State = {
 
 export function reducer(
   state = initialState,
-  action:
-    | AuthApiActions.AuthApiActionsUnion
-    | LoginPageActions.LoginPageActionsUnion
+  action: AuthApiActions.Actions | LoginPageActions.Actions
 ): State {
   switch (action.type) {
-    case LoginPageActions.LoginPageActionTypes.Login: {
+    case LoginPageActions.LOGIN: {
       return {
         ...state,
         error: null,

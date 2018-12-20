@@ -10,7 +10,8 @@ import { LoginPageActions } from '@example-app/auth/actions';
     <bc-login-form
       (submitted)="onSubmit($event)"
       [pending]="pending$ | async"
-      [errorMessage]="error$ | async">
+      [errorMessage]="error$ | async"
+    >
     </bc-login-form>
   `,
   styles: [],
@@ -24,6 +25,6 @@ export class LoginPageComponent implements OnInit {
   ngOnInit() {}
 
   onSubmit(credentials: Credentials) {
-    this.store.dispatch(new LoginPageActions.Login({ credentials }));
+    this.store.dispatch(LoginPageActions.Actions.login({ credentials }));
   }
 }
