@@ -32,10 +32,10 @@ export class SelectedBookPageComponent {
   }
 
   addToCollection(book: Book) {
-    this.store.dispatch(new SelectedBookPageActions.AddBook(book));
+    this.store.dispatch(SelectedBookPageActions.Actions.addBook(book));
   }
 
   removeFromCollection(book: Book) {
-    this.store.dispatch(new SelectedBookPageActions.RemoveBook(book));
+    this.store.dispatch(SelectedBookPageActions.Actions.removeBook(book));
   }
 }

@@ -1,4 +1,4 @@
-import { Inject, Injectable, InjectionToken, Optional } from '@angular/core';
+import { Injectable } from '@angular/core';
 import { Actions, Effect, ofType } from '@ngrx/effects';
 import { Action } from '@ngrx/store';
 import { asyncScheduler, EMPTY as empty, Observable, of } from 'rxjs';
@@ -51,14 +51,14 @@ export class BookEffects {
 
         return this.googleBooks.searchBooks(query).pipe(
           takeUntil(nextSearch$),
-          map((books: Book[]) => new BooksApiActions.SearchSuccess(books)),
-          catchError(err => of(new BooksApiActions.SearchFailure(err)))
+          map((books: Book[]) => BooksApiActions.Actions.searchSuccess(books)),
+          catchError(err => of(BooksApiActions.Actions.searchFailure(err)))
         );
       })
     );
 
   constructor(
-    private actions$: Actions<FindBookPageActions.FindBookPageActionsUnion>,
+    private actions$: Actions<FindBookPageActions.Actions>,
     private googleBooks: GoogleBooksService
   ) {}
 }

@@ -1,4 +1,3 @@
-import { Action } from '@ngrx/store';
 import { User } from '@example-app/auth/models/user';
 import {
   ActionsUnion,

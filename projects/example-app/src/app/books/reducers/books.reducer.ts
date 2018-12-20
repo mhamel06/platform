@@ -43,10 +43,10 @@ export const initialState: State = adapter.getInitialState({
 export function reducer(
   state = initialState,
   action:
-    | BooksApiActions.BooksApiActionsUnion
-    | BookActions.BookActionsUnion
-    | ViewBookPageActions.ViewBookPageActionsUnion
-    | CollectionApiActions.CollectionApiActionsUnion
+    | BooksApiActions.Actions
+    | BookActions.Actions
+    | ViewBookPageActions.Actions
+    | CollectionApiActions.Actions
 ): State {
   switch (action.type) {
     case BooksApiActions.BooksApiActionTypes.SearchSuccess:

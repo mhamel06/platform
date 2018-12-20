@@ -39,8 +39,8 @@ describe('BookEffects', () => {
       const book1 = { id: '111', volumeInfo: {} } as Book;
       const book2 = { id: '222', volumeInfo: {} } as Book;
       const books = [book1, book2];
-      const action = new FindBookPageActions.SearchBooks('query');
-      const completion = new BooksApiActions.SearchSuccess(books);
+      const action = FindBookPageActions.Actions.searchBooks('query');
+      const completion = BooksApiActions.Actions.searchSuccess(books);
 
       actions$ = hot('-a---', { a: action });
       const response = cold('-a|', { a: books });
@@ -56,8 +56,8 @@ describe('BookEffects', () => {
     });
 
     it('should return a new book.SearchError if the books service throws', () => {
-      const action = new FindBookPageActions.SearchBooks('query');
-      const completion = new BooksApiActions.SearchFailure(
+      const action = FindBookPageActions.Actions.searchBooks('query');
+      const completion = BooksApiActions.Actions.searchFailure(
         'Unexpected Error. Try again later.'
       );
       const error = 'Unexpected Error. Try again later.';
@@ -76,7 +76,7 @@ describe('BookEffects', () => {
     });
 
     it(`should not do anything if the query is an empty string`, () => {
-      const action = new FindBookPageActions.SearchBooks('');
+      const action = FindBookPageActions.Actions.searchBooks('');
 
       actions$ = hot('-a---', { a: action });
       const expected = cold('---');

@@ -1,13 +1,15 @@
-import { Action } from '@ngrx/store';
+import {
+  ActionsUnion,
+  createAction,
+} from '@example-app/shared/models/actions.model';
 
 export enum ViewBookPageActionTypes {
   SelectBook = '[View Book Page] Select Book',
 }
 
-export class SelectBook implements Action {
-  readonly type = ViewBookPageActionTypes.SelectBook;
+export const Actions = {
+  selectBook: (payload: string) =>
+    createAction(ViewBookPageActionTypes.SelectBook, payload),
+};
 
-  constructor(public payload: string) {}
-}
-
-export type ViewBookPageActionsUnion = SelectBook;
+export type Actions = ActionsUnion<typeof Actions>;

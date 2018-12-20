@@ -54,16 +54,16 @@ export class AppComponent {
      * updates and user interaction through the life of our
      * application.
      */
-    this.store.dispatch(new LayoutActions.CloseSidenav());
+    this.store.dispatch(LayoutActions.Actions.closeSidenav());
   }
 
   openSidenav() {
-    this.store.dispatch(new LayoutActions.OpenSidenav());
+    this.store.dispatch(LayoutActions.Actions.openSidenav());
   }
 
   logout() {
     this.closeSidenav();
 
-    this.store.dispatch(new AuthActions.LogoutConfirmation());
+    this.store.dispatch(AuthActions.Actions.logoutConfirmation());
   }
 }

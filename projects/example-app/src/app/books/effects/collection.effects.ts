@@ -35,11 +35,11 @@ export class CollectionEffects {
     switchMap(() =>
       this.db.query('books').pipe(
         toArray(),
-        map(
-          (books: Book[]) => new CollectionApiActions.LoadBooksSuccess(books)
+        map((books: Book[]) =>
+          CollectionApiActions.Actions.loadBooksSuccess(books)
         ),
         catchError(error =>
-          of(new CollectionApiActions.LoadBooksFailure(error))
+          of(CollectionApiActions.Actions.loadBooksFailure(error))
         )
       )
     )
@@ -51,8 +51,8 @@ export class CollectionEffects {
     map(action => action.payload),
     mergeMap(book =>
       this.db.insert('books', [book]).pipe(
-        map(() => new CollectionApiActions.AddBookSuccess(book)),
-        catchError(() => of(new CollectionApiActions.AddBookFailure(book)))
+        map(() => CollectionApiActions.Actions.addBookSuccess(book)),
+        catchError(() => of(CollectionApiActions.Actions.addBookFailure(book)))
       )
     )
   );
@@ -63,16 +63,16 @@ export class CollectionEffects {
     map(action => action.payload),
     mergeMap(book =>
       this.db.executeWrite('books', 'delete', [book.id]).pipe(
-        map(() => new CollectionApiActions.RemoveBookSuccess(book)),
-        catchError(() => of(new CollectionApiActions.RemoveBookFailure(book)))
+        map(() => CollectionApiActions.Actions.removeBookSuccess(book)),
+        catchError(() =>
+          of(CollectionApiActions.Actions.removeBookFailure(book))
+        )
       )
     )
   );
 
   constructor(
-    private actions$: Actions<
-      SelectedBookPageActions.SelectedBookPageActionsUnion
-    >,
+    private actions$: Actions<SelectedBookPageActions.Actions>,
     private db: Database
   ) {}
 }

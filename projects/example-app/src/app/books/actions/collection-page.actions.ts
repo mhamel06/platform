@@ -1,14 +1,17 @@
-import { Action } from '@ngrx/store';
+import {
+  ActionsUnion,
+  createAction,
+} from '@example-app/shared/models/actions.model';
 
 export enum CollectionPageActionTypes {
   LoadCollection = '[Collection Page] Load Collection',
 }
 
-/**
- * Load Collection Action
- */
-export class LoadCollection implements Action {
-  readonly type = CollectionPageActionTypes.LoadCollection;
-}
+export const Actions = {
+  /**
+   * Load Collection Action
+   */
+  loadCollection: () => createAction(CollectionPageActionTypes.LoadCollection),
+};
 
-export type CollectionPageActionsUnion = LoadCollection;
+export type Actions = ActionsUnion<typeof Actions>;

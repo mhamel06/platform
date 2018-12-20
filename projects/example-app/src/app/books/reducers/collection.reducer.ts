@@ -19,9 +19,9 @@ const initialState: State = {
 export function reducer(
   state = initialState,
   action:
-    | SelectedBookPageActions.SelectedBookPageActionsUnion
-    | CollectionPageActions.CollectionPageActionsUnion
-    | CollectionApiActions.CollectionApiActionsUnion
+    | SelectedBookPageActions.Actions
+    | CollectionPageActions.Actions
+    | CollectionApiActions.Actions
 ): State {
   switch (action.type) {
     case CollectionPageActions.CollectionPageActionTypes.LoadCollection: {

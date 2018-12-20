@@ -1,27 +1,19 @@
-import { Action } from '@ngrx/store';
 import { Book } from '@example-app/books/models/book';
+import {
+  ActionsUnion,
+  createAction,
+} from '@example-app/shared/models/actions.model';
 
 export enum SelectedBookPageActionTypes {
   AddBook = '[Selected Book Page] Add Book',
   RemoveBook = '[Selected Book Page] Remove Book',
 }
 
-/**
- * Add Book to Collection Action
- */
-export class AddBook implements Action {
-  readonly type = SelectedBookPageActionTypes.AddBook;
+export const Actions = {
+  addBook: (payload: Book) =>
+    createAction(SelectedBookPageActionTypes.AddBook, payload),
+  removeBook: (payload: Book) =>
+    createAction(SelectedBookPageActionTypes.RemoveBook, payload),
+};
 
-  constructor(public payload: Book) {}
-}
-
-/**
- * Remove Book from Collection Action
- */
-export class RemoveBook implements Action {
-  readonly type = SelectedBookPageActionTypes.RemoveBook;
-
-  constructor(public payload: Book) {}
-}
-
-export type SelectedBookPageActionsUnion = AddBook | RemoveBook;
+export type Actions = ActionsUnion<typeof Actions>;
